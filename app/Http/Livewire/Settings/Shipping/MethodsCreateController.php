@@ -19,7 +19,7 @@ class MethodsCreateController extends Component {
 
         ShippingMethod::create($validate);
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Inserted record!']);
+        $this->dispatch('success-toast', ['message' => 'Inserted record!']);
     }
 
     public function render(): View {

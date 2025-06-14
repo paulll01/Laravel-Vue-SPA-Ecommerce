@@ -28,8 +28,8 @@ trait FileTrait
             $imageName = rtrim($imageName);
         } else {
             $imageName = Carbon::now()->timestamp . '1.' . $images->extension();
-            Storage::makeDirectory('public/' . $path);
-            $images->storeAs('public/' . $path, $imageName);
+            Storage::makeDirectory($path);
+            $images->storeAs($path, $imageName);
         }
 
         return $imageName;
@@ -39,20 +39,25 @@ trait FileTrait
     /**
      * Delete file function.
      */
-    public function fileDestroy(array | string $images, string $path): bool
+    public function fileDestroy(array|string $images, string $path): bool
     {
-        if (gettype($images) === 'array') {
+        if (is_array($images)) {
             foreach ($images as $image) {
-                if (Storage::exists('public/' . $path . '/' . $image)) {
-                    Storage::delete('public/' . $path . '/' . $image);
+                $fullPath = $path . '/' . $image;
+                if (Storage::disk('public')->exists($fullPath)) {
+                    Storage::disk('public')->delete($fullPath);
                 }
             }
             return true;
         } else {
-            if (Storage::exists('public/' . $path . '/' . $images)) {
-                return Storage::delete('public/' . $path . '/' . $images);
+            $fullPath = $path . '/' . $images;
+            // dd($images, Storage::disk('public')->exists($fullPath), $fullPath);
+
+            if (Storage::disk('public')->exists($fullPath)) {
+                return Storage::disk('public')->delete($fullPath);
             }
         }
+
         return false;
     }
 }

@@ -29,17 +29,17 @@ Dashboard
                                             <h6>Filter</h6>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showSale("Today")'>
+                                            <form wire:submit='showSale("Today")'>
                                                 <button class="dropdown-item">Today</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showSale("This Month")'>
+                                            <form wire:submit='showSale("This Month")'>
                                                 <button class="dropdown-item">This Month</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showSale("This Year")'>
+                                            <form wire:submit='showSale("This Year")'>
                                                 <button class="dropdown-item">This Year</button>
                                             </form>
                                         </li>
@@ -74,17 +74,17 @@ Dashboard
                                             <h6>Filter</h6>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showRevenue("Today")'>
+                                            <form wire:submit='showRevenue("Today")'>
                                                 <button class="dropdown-item">Today</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showRevenue("This Month")'>
+                                            <form wire:submit='showRevenue("This Month")'>
                                                 <button class="dropdown-item">This Month</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showRevenue("This Year")'>
+                                            <form wire:submit='showRevenue("This Year")'>
                                                 <button class="dropdown-item">This Year</button>
                                             </form>
                                         </li>
@@ -118,17 +118,17 @@ Dashboard
                                             <h6>Filter</h6>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showUsers("Today")'>
+                                            <form wire:submit='showUsers("Today")'>
                                                 <button class="dropdown-item">Today</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showUsers("This Month")'>
+                                            <form wire:submit='showUsers("This Month")'>
                                                 <button class="dropdown-item">This Month</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showUsers("This Year")'>
+                                            <form wire:submit='showUsers("This Year")'>
                                                 <button class="dropdown-item">This Year</button>
                                             </form>
                                         </li>
@@ -162,17 +162,17 @@ Dashboard
                                             <h6>Filter</h6>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showOrders("Today")'>
+                                            <form wire:submit='showOrders("Today")'>
                                                 <button class="dropdown-item">Today</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showOrders("This Month")'>
+                                            <form wire:submit='showOrders("This Month")'>
                                                 <button class="dropdown-item">This Month</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showOrders("This Year")'>
+                                            <form wire:submit='showOrders("This Year")'>
                                                 <button class="dropdown-item">This Year</button>
                                             </form>
                                         </li>
@@ -207,17 +207,17 @@ Dashboard
                                             <h6>Filter</h6>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showRecentSale("Today")'>
+                                            <form wire:submit='showRecentSale("Today")'>
                                                 <button class="dropdown-item">Today</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showRecentSale("This Month")'>
+                                            <form wire:submit='showRecentSale("This Month")'>
                                                 <button class="dropdown-item">This Month</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showRecentSale("This Year")'>
+                                            <form wire:submit='showRecentSale("This Year")'>
                                                 <button class="dropdown-item">This Year</button>
                                             </form>
                                         </li>
@@ -264,17 +264,17 @@ Dashboard
                                             <h6>Filter</h6>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showArrivals("Today")'>
+                                            <form wire:submit='showArrivals("Today")'>
                                                 <button class="dropdown-item">Today</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showArrivals("This Month")'>
+                                            <form wire:submit='showArrivals("This Month")'>
                                                 <button class="dropdown-item">This Month</button>
                                             </form>
                                         </li>
                                         <li>
-                                            <form wire:submit.prevent='showArrivals("This Year")'>
+                                            <form wire:submit='showArrivals("This Year")'>
                                                 <button class="dropdown-item">This Year</button>
                                             </form>
                                         </li>

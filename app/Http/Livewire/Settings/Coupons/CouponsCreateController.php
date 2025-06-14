@@ -21,7 +21,7 @@ class CouponsCreateController extends Component {
 
         $this->propertyResetExcept();
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Inserted record!']);
+        $this->dispatch('success-toast', ['message' => 'Inserted record!']);
     }
 
     public function render(): View {

@@ -114,7 +114,7 @@ class GeneralController extends Component
 
         GeneralSettings::updateOrCreate(['id' => $this->settingsId], $validate);
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Updated record!']);
+        $this->dispatch('success-toast', ['message' => 'Updated record!']);
     }
 
     public function render(): View

@@ -131,7 +131,7 @@ Orders Details
                                     <div class="row">
                                         <div class="col-xl-8">
                                             <div class="col-6 mt-3">
-                                                <form wire:submit.prevent='update'>
+                                                <form wire:submit='update'>
                                                     <select wire:model='changedStatus' class="form-select"
                                                         aria-label="Default select example">
                                                         <option value="Approved">Approved</option>

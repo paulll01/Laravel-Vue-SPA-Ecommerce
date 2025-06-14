@@ -56,7 +56,7 @@ class HomeController extends Controller
     {
         $allCategory = Section::with(['category' => function ($query) {
             $query->select('id', 'name', 'slug', 'section_id')->with('subCategory:id,category_id,name,slug');
-        }])->get(['id', 'name']);
+        }])->get(['id', 'name', 'slug']);
 
         return response()->json(compact('allCategory'));
     }

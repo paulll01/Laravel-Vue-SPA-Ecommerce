@@ -45,7 +45,7 @@ class EditorsUpdateController extends Component {
 
         Editor::whereId($this->editorId)->update($validate);
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Updated record!']);
+        $this->dispatch('success-toast', ['message' => 'Updated record!']);
     }
 
     public function render(): View {

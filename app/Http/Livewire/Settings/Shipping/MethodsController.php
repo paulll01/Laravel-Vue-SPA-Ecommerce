@@ -34,7 +34,7 @@ class MethodsController extends Component {
      */
     public function destroy(int $id): void {
         ShippingMethod::destroy($id);
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Deleted record!']);
+        $this->dispatch('success-toast', ['message' => 'Deleted record!']);
     }
 
     public function render(): View {

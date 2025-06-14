@@ -36,7 +36,7 @@ class ContactUsReplyController extends Component {
 
         Mail::to($this->email)->send(new Replay($validate));
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'deleted record!']);
+        $this->dispatch('success-toast', ['message' => 'deleted record!']);
     }
 
     public function render(): View {

@@ -45,7 +45,7 @@ class BrandsController extends Component {
 
         $brand->delete();
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'deleted record!']);
+        $this->dispatch('success-toast', ['message' => 'deleted record!']);
     }
 
     public function render(): View {

@@ -6,11 +6,13 @@ use App\Http\Resources\Api\Frontend\ProductCollection;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
-class SearchProductService {
+class SearchProductService
+{
     /**
      * Get products by dynamic search.
      */
-    public static function searchProductQuery(object $request, ?string $optionalRequest = null): object {
+    public static function searchProductQuery(object $request, ?string $optionalRequest = null): object
+    {
         $products = DB::table('products')
             ->select(DB::raw('DISTINCT(products.id) as p_id'), 'products.name', 'products.sale_price', 'products.slug', 'products.sku', 'products.image', 'products.created_at', 'offers.discount', 'offers.type', 'offers.status', 'offers.expire_date')
             ->leftJoin('offers', 'products.offer_id', '=', 'offers.id')
@@ -21,6 +23,11 @@ class SearchProductService {
             ->when($optionalRequest === 'categories', function ($query) use ($request) {
                 $query->join('categories', 'products.category_id', '=', 'categories.id')
                     ->where('categories.slug', $request->slug);
+            })
+            ->when($optionalRequest === 'sections', function ($query) use ($request) {
+                $query->join('categories', 'products.category_id', '=', 'categories.id')
+                    ->join('sections', 'categories.section_id', '=', 'sections.id')
+                    ->where('sections.slug', $request->slug);
             })
             ->when($optionalRequest === 'subCategories', function ($query) use ($request) {
                 $query->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
@@ -33,8 +40,11 @@ class SearchProductService {
             ->when($optionalRequest === 'sales', function ($query) {
                 $query->where('offers.discount', '>', 0)->where('expire_date', '>', now());
             })
-            ->when($request->minPrice && $request->maxPrice, function ($query) use ($request) {
-                $query->whereBetween('products.sale_price', [$request->minPrice, $request->maxPrice]);
+            ->when($request->minPrice, function ($query) use ($request) {
+                $query->where('products.sale_price', '>=', $request->minPrice);
+            })
+            ->when($request->maxPrice, function ($query) use ($request) {
+                $query->where('products.sale_price', '<=', $request->maxPrice);
             })
             ->when($request->attribute, function ($query) use ($request) {
                 $query->join('product_attributes', 'products.id', '=', 'product_attributes.product_id')
@@ -62,9 +72,8 @@ class SearchProductService {
                 } elseif ($request->sort === 'latest') {
                     $query->latest();
                 }
-
             }, fn($query) => $query->latest())
-            ->paginate($request->limit ?? 20);
+            ->paginate($request->limit ?? 10);
 
         return new ProductCollection($products);
     }

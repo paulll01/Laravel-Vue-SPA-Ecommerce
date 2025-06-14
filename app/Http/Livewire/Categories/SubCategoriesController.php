@@ -41,7 +41,7 @@ class SubCategoriesController extends Component {
      */
     public function destroy(int $id): void {
         SubCategory::destroy($id);
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'deleted record!']);
+        $this->dispatch('success-toast', ['message' => 'deleted record!']);
     }
 
     public function render(): View {

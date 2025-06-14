@@ -22,7 +22,7 @@ class ProductResource extends JsonResource
             'sale_price' => $this->sale_price,
             'slug' => $this->slug,
             'sku' => $this->sku,
-            'image' => asset(Storage::url('products/' . $this->image)),
+            'image' => asset(Storage::url('products/' . $this->slug . '/' . $this->image)),
             'discount' => $this->discount,
             'type' => $this->type,
             'status' => $this->status,

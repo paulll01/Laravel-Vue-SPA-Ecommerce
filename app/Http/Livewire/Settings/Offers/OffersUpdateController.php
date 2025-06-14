@@ -95,7 +95,7 @@ class OffersUpdateController extends Component {
             Product::whereOfferId($this->offerId)->update(['offer_id' => null]);
         }
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Updated record!']);
+        $this->dispatch('success-toast', ['message' => 'Updated record!']);
     }
 
     public function render(): View {

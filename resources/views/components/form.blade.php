@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Vertical Form -->
-                        <form class="row g-3 mt-2" wire:submit.prevent='{{ $action ?? '' }}' enctype="{{ $enctype ?? '' }}">
+                        <form class="row g-3 mt-2" wire:submit='{{ $action ?? '' }}' enctype="{{ $enctype ?? '' }}">
 
                             {{ $slot }}
 

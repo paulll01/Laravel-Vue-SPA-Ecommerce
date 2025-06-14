@@ -40,7 +40,7 @@ class ContactUsController extends Component {
      */
     public function destroy(int $id): void {
         ContactUs::destroy($id);
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Deleted record!']);
+        $this->dispatch('success-toast', ['message' => 'Deleted record!']);
     }
 
     public function render(): View {

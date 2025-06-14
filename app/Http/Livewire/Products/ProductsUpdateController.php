@@ -17,15 +17,19 @@ use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class ProductsUpdateController extends Component {
+class ProductsUpdateController extends Component
+{
     use ProductsService, WithFileUploads, FileTrait, CreateSlugTrait;
 
     public string $pageUrl = 'update';
+    public $image;
+    public $gallery = [];
 
     /**
      * Get product's by id.
      */
-    public function mount(int $id): void {
+    public function mount(int $id): void
+    {
         $this->productId = $id;
 
         $product = Product::where('id', $id)->with('productAttribute')->first();
@@ -39,7 +43,7 @@ class ProductsUpdateController extends Component {
         $this->stock_status     = $product->stock_status;
         $this->status           = $product->status;
         $this->selectedCategory = $product->category_id;
-        $this->sub_category_id  = $product->sub_category_id;
+        // $this->sub_category_id  = $product->sub_category_id;
         $this->brand_id         = $product->brand_id;
         $this->tags             = $product->tags;
         $this->productAttribute = implode(',', $product->productAttribute->pluck('values')->all());
@@ -47,6 +51,7 @@ class ProductsUpdateController extends Component {
         $this->specification    = $product->specification;
         $this->oldImage         = $product->image;
         $this->oldGallery       = $product->gallery;
+        // dd($this->oldImage, $this->oldGallery);
 
         $this->categories    = Category::whereStatus(1)->get(['id', 'name']);
         $this->subCategories = SubCategory::whereStatus(1)->get(['id', 'name']);
@@ -59,7 +64,8 @@ class ProductsUpdateController extends Component {
     /**
      * Update product.
      */
-    public function update(): void {
+    public function update(): void
+    {
         $beforeProductSaveFunc = $this->beforeProductSaveFunc();
 
         Product::whereId($this->productId)->update($beforeProductSaveFunc['validate']);
@@ -72,10 +78,11 @@ class ProductsUpdateController extends Component {
                 );
             }
         }
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Updated record!']);
+        $this->dispatch('success-toast', ['message' => 'Updated record!']);
     }
 
-    public function render(): View {
+    public function render(): View
+    {
         return view('livewire.products.products-update');
     }
 }

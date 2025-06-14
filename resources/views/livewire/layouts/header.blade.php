@@ -2,7 +2,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{ route('home') }}" class="logo d-flex align-items-center">
             <img src="assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">Admin Panel</span>
+            <span class="d-none d-lg-block">Crop Design</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -17,7 +17,8 @@
 
             <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('editor')->user()->name }}</span>
+                    <span
+                        class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('editor')->user()->name }}</span>
                 </a><!-- End Profile Iamge Icon -->
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
@@ -32,7 +33,8 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('profile', ['id' => Auth::guard('editor')->user()->id]) }}">
+                        <a class="dropdown-item d-flex align-items-center"
+                            href="{{ route('profile', ['id' => Auth::guard('editor')->user()->id]) }}">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>

@@ -5,7 +5,8 @@ namespace App\Http\ServiceTraits;
 use App\Models\Category;
 use App\Models\SubCategory;
 
-trait ProductsService {
+trait ProductsService
+{
     public string $name;
     public int $productId;
     public string $slug;
@@ -24,7 +25,7 @@ trait ProductsService {
     public ?object $categories    = null;
     public ?object $subCategories = null;
     public int $sub_category_id;
-    public int $brand_id;
+    public ?int $brand_id;
     public ?string $tags;
     public array $selectedTags                      = [];
     public string $productAttribute                 = '';
@@ -38,7 +39,8 @@ trait ProductsService {
     public $gallery = [];
     public string $oldGallery;
 
-    protected function rules() {
+    protected function rules()
+    {
         if ($this->pageUrl == 'update') {
             $rulesForUpdate = [
                 'name'             => 'required|string|max:255',
@@ -50,8 +52,8 @@ trait ProductsService {
                 'stock_status'     => 'required|boolean',
                 'status'           => 'required|boolean',
                 'selectedCategory' => 'required|numeric',
-                'sub_category_id'  => 'required|numeric',
-                'brand_id'         => 'required|numeric',
+                'sub_category_id'  => 'nullable|numeric',
+                // 'brand_id'         => 'required|numeric',
                 'description'      => 'required|string',
                 'specification'    => 'required|string',
             ];
@@ -80,8 +82,8 @@ trait ProductsService {
                 'stock_status'     => 'required|boolean',
                 'status'           => 'required|boolean',
                 'selectedCategory' => 'required|numeric',
-                'sub_category_id'  => 'required|numeric',
-                'brand_id'         => 'required|numeric',
+                'sub_category_id'  => 'nullable|numeric',
+                // 'brand_id'         => 'required|numeric',
                 'selectedTags'     => 'required_if:array,nullable',
                 'description'      => 'required|string',
                 'specification'    => 'required|string',
@@ -91,30 +93,34 @@ trait ProductsService {
         }
     }
 
-    public function updated(mixed $propertyName): void {
+    public function updated(mixed $propertyName): void
+    {
         $this->validateOnly($propertyName, $this->rules());
     }
 
     /**
      * Fetch categories based on section while changing section.
      */
-    public function updatedSelectedSection(): void {
+    public function updatedSelectedSection(): void
+    {
         $this->categories = Category::where('section_id', $this->selectedSection)->whereStatus(1)
-        ->get(['id', 'name']);
+            ->get(['id', 'name']);
     }
 
     /**
      * Fetch subcategories based on category while changing category.
      */
-    public function updatedSelectedCategory(): void {
+    public function updatedSelectedCategory(): void
+    {
         $this->subCategories = SubCategory::where('category_id', $this->selectedCategory)->whereStatus(1)
-        ->get(['id', 'name']);
+            ->get(['id', 'name']);
     }
 
     /**
      * Before creating or updating the product some common tasks will be performed from this function.
      */
-    public function beforeProductSaveFunc(): array {
+    public function beforeProductSaveFunc(): array
+    {
         $validate                = $this->validate();
         $validate['category_id'] = $validate['selectedCategory'];
 
@@ -133,10 +139,12 @@ trait ProductsService {
             }
         }
         if (gettype($this->image) == 'object') {
-            $validate['image'] = $this->fileUpload($this->image, 'products');
+            // dd($this->oldImage);
+            $this->fileDestroy($this->oldImage, 'products/' . $this->slug);
+            $validate['image'] = $this->fileUpload($this->image, 'products/' . $this->slug);
         }
         if (gettype($this->gallery == 'array') && !empty($this->gallery)) {
-            $validate['gallery'] = $this->fileUpload($this->gallery, 'products');
+            $validate['gallery'] = $this->fileUpload($this->gallery, 'products' . $this->slug);
         }
         return ['validate' => $validate, 'attribute' => $attribute ?? null];
     }

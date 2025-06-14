@@ -83,14 +83,14 @@ Profile
                                     <div class="tab-pane fade profile-edit pt-3 active-color-overright" id="profile-edit">
 
                                         <!-- Profile Edit Form -->
-                                        <form method="POST" wire:submit.prevent="update">
+                                        <form method="POST" wire:submit="update">
 
                                             <div class="row mb-3">
                                                 <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full
                                                     Name</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="fullName" type="text" class="form-control" id="fullName"
-                                                        wire:model.defer='name'>
+                                                        wire:model='name'>
                                                     @error('name')
                                                     <small
                                                         class=" error fw-lighter text-danger text-lg mx-3">*{{ $message }}*</small>
@@ -102,7 +102,7 @@ Profile
                                                 <label for="company" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="company" type="text" class="form-control" id="company"
-                                                        wire:model.defer='email'>
+                                                        wire:model='email'>
                                                     @error('email')
                                                     <small
                                                         class=" error fw-lighter text-danger text-lg mx-3">*{{ $message }}*</small>
@@ -114,7 +114,7 @@ Profile
                                                 <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="phone" type="text" class="form-control" id="Phone"
-                                                        wire:model.defer='phone'>
+                                                        wire:model='phone'>
                                                     @error('phone')
                                                     <small
                                                         class=" error fw-lighter text-danger text-lg mx-3">*{{ $message }}*</small>
@@ -126,7 +126,7 @@ Profile
                                                 <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="address" type="text" class="form-control" id="Address"
-                                                        wire:model.defer='address'>
+                                                        wire:model='address'>
                                                     @error('address')
                                                     <small
                                                         class=" error fw-lighter text-danger text-lg mx-3">*{{ $message }}*</small>
@@ -138,7 +138,7 @@ Profile
                                                 <label for="city" class="col-md-4 col-lg-3 col-form-label">City</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="city" type="text" class="form-control" id="city"
-                                                        wire:model.defer='city'>
+                                                        wire:model='city'>
                                                     @error('city')
                                                     <small
                                                         class=" error fw-lighter text-danger text-lg mx-3">*{{ $message }}*</small>
@@ -151,7 +151,7 @@ Profile
                                                 <label for="State" class="col-md-4 col-lg-3 col-form-label">State</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="State" type="text" class="form-control" id="State"
-                                                        wire:model.defer='state'>
+                                                        wire:model='state'>
                                                     @error('state')
                                                     <small
                                                         class=" error fw-lighter text-danger text-lg mx-3">*{{ $message }}*</small>
@@ -164,7 +164,7 @@ Profile
                                                     Password</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="password" type="password" class="form-control" id="password"
-                                                        wire:model.defer="password" placeholder="********">
+                                                        wire:model="password" placeholder="********">
                                                     @error('password')
                                                     <small
                                                         class=" error fw-lighter text-danger text-lg mx-3">*{{ $message }}*</small>
@@ -178,7 +178,7 @@ Profile
                                                     Password</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="password_confirmation" type="password" class="form-control"
-                                                        id="password_confirmation" wire:model.defer="password_confirmation"
+                                                        id="password_confirmation" wire:model="password_confirmation"
                                                         placeholder="********">
                                                     @error('password_confirmation')
                                                     <small
@@ -195,7 +195,7 @@ Profile
                                     </div>
                                 </div>
                                 <br>
-                                <form wire:submit.prevent="destroy">
+                                <form wire:submit="destroy">
                                     @if(Auth::guard('editor')->user()->role == 0)
                                         <div class="text-end">
                                             <button type="submit" class="btn btn-danger">Delete Account</button>

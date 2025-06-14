@@ -27,7 +27,7 @@ class TagsCreateController extends Component {
 
         $this->reset();
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Inserted record!']);
+        $this->dispatch('success-toast', ['message' => 'Inserted record!']);
     }
 
     public function render(): View {

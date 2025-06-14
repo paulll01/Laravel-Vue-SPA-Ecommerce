@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\SectionController;
 use App\Http\Controllers\Api\ShopController;
 use App\Http\Controllers\Api\SubCategoryController;
 use App\Http\Controllers\Api\TopSaleController;
@@ -59,9 +60,9 @@ Route::name('api.')->group(function () {
 
     Route::get('/shop', ShopController::class)->name('shop');
 
-    Route::get('/categories/{slug}', CategoryController::class)->name('categories');
+    Route::get('/shop/{section}', SectionController::class)->name('shop.sections');
 
-    Route::get('/sub-categories/{slug}', SubCategoryController::class)->name('subCategories');
+    Route::get('/shop/{section}/{category}', CategoryController::class)->name('shop.categories');
 
     Route::get('/brands/{slug}', BrandController::class)->name('brands');
 
@@ -78,9 +79,7 @@ Route::name('api.')->group(function () {
     });
 
     Route::middleware('auth:sanctum')->prefix('/users')->name('users.')->group(function () {
-
         Route::prefix('/cart')->name('cart.')->group(function () {
-
             Route::get('/{id}', [CartController::class, 'inbox'])->whereNumber('id');
 
             Route::delete('/{id}', [CartController::class, 'destroy'])->name('destroy')->whereNumber('id');

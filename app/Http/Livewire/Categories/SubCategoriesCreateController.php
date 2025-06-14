@@ -24,7 +24,7 @@ class SubCategoriesCreateController extends Component {
 
         $this->propertyResetExcept();
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Inserted record!']);
+        $this->dispatch('success-toast', ['message' => 'Inserted record!']);
     }
 
     function mount() : void {

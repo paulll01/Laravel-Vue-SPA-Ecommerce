@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Users\CheckoutController;
+use App\Http\Livewire\Blog\PostsController;
 use App\Http\Livewire\Categories\CategoriesController;
 use App\Http\Livewire\Categories\CategoriesCreateController;
 use App\Http\Livewire\Categories\CategoriesUpdateController;
@@ -57,6 +58,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:editor')->group(function () {
 
     Route::get('/', DashboardController::class)->name('home');
+
+    Route::prefix('blog')->name('posts')->group(function () {
+
+        Route::get('/', PostsController::class);
+
+        // Route::get('/create', ProductsCreateController::class)->name('.create');
+
+        // Route::get('/{id}/edit', ProductsUpdateController::class)->name('.update')->whereNumber('id');
+    });
 
     Route::prefix('products')->name('products')->group(function () {
 

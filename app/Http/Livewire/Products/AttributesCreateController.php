@@ -51,7 +51,7 @@ class AttributesCreateController extends Component {
         
         $attribute->attributeOption()->createMany($attributeValues);
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Inserted record!']);
+        $this->dispatch('success-toast', ['message' => 'Inserted record!']);
     }
 
     public function render(): View {

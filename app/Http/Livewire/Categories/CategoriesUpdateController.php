@@ -45,7 +45,7 @@ class CategoriesUpdateController extends Component {
         }
         Category::where('id', $this->categoryId)->update($validate);
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Updated record']);
+        $this->dispatch('success-toast', ['message' => 'Updated record']);
     }
 
     public function render(): View {

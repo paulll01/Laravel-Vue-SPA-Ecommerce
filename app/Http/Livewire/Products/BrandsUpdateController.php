@@ -43,7 +43,7 @@ class BrandsUpdateController extends Component {
         }
         Brand::where('id', $this->brandId)->update($validate);
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Updated record!']);
+        $this->dispatch('success-toast', ['message' => 'Updated record!']);
     }
 
     public function render(): View {

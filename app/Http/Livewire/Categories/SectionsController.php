@@ -46,7 +46,7 @@ class SectionsController extends Component {
 
         $section->delete();
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'deleted record!']);
+        $this->dispatch('success-toast', ['message' => 'deleted record!']);
     }
 
     public function render(): View {

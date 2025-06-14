@@ -43,7 +43,7 @@ class ProductsCreateController extends Component {
         if (!empty($beforeProductSaveFunc['attribute'])) {
             $product->productAttribute()->createMany($beforeProductSaveFunc['attribute']);
         }
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'Inserted record!']);
+        $this->dispatch('success-toast', ['message' => 'Inserted record!']);
     }
 
     public function render(): View {

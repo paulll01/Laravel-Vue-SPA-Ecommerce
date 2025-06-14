@@ -2,65 +2,74 @@
 
 namespace App\Http\Livewire\Products;
 
-use App\Http\Traits\BooleanTableTrait;
+use App\Models\Product;
+use Livewire\Component;
+use Illuminate\View\View;
+use Livewire\WithPagination;
 use App\Http\Traits\FileTrait;
 use App\Http\Traits\TableColumnTrait;
-use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
-use Livewire\Component;
-use Livewire\WithPagination;
+use App\Http\Traits\BooleanTableTrait;
+use Livewire\Features\SupportRedirects\Redirector;
 
-class ProductsController extends Component {
-    use WithPagination, BooleanTableTrait, TableColumnTrait, FileTrait;
+class ProductsController extends Component
+{
+    use WithPagination, BooleanTableTrait, FileTrait;
 
-    /**
-     * Set table column.
-     */
-    public function mount(): void {
-        $this->tableColumnTrait(
-            ['Image', 'Name', 'SKU', 'Qty', 'Sub Category', 'Sale', 'Original', 'Stock', 'Status', 'Action'],
-            ['image', 'name', 'sku', 'qty_in_stock', 'sub_category_id', 'sale_price', 'original_price', 'stock_status', 'status']
-        );
-        $this->booleanTrait(
-            ['stock_status', 'status'],
-            [['Out Of Stock', 'InStock'], ['Unpublish', 'Publish']],
-            [
-                ['badge text-bg-danger', 'badge text-bg-success'],
-                ['badge text-bg-warning', 'badge text-bg-primary'],
-            ]
-        );
+    public string $search = '';
+    public string $showDataPerPage = '10';
+
+    public function mount(): void
+    {
+        // $this->tableColumnTrait(
+        //     ['Image', 'Name', 'SKU', 'Qty', 'Sub Category', 'Sale', 'Original', 'Stock', 'Status', 'Action'],
+        //     ['image', 'name', 'sku', 'qty_in_stock', 'sub_category_id', 'sale_price', 'original_price', 'stock_status', 'status']
+        // );
+
+        // $this->booleanTrait(
+        //     ['stock_status', 'status'],
+        //     [['Out Of Stock', 'InStock'], ['Unpublish', 'Publish']],
+        //     [
+        //         ['badge text-bg-danger', 'badge text-bg-success'],
+        //         ['badge text-bg-warning', 'badge text-bg-primary'],
+        //     ]
+        // );
     }
 
-    /**
-     * Redirect to update controller.
-     */
-    public function update(int $productId) {
-        return redirect()->route('products.update', $productId);
+    public function updatingSearch(): void
+    {
+        $this->resetPage(); // ensures pagination resets on search
     }
 
-    /**
-     * Delete product.
-     */
-    public function destroy(int $id): void {
+    public function update(int $productId): Redirector
+    {
+        return redirect(route('products.update', $productId));
+    }
+
+    public function destroy(int $id): void
+    {
         $product = Product::findOrFail($id);
 
-        $images = explode(' ', $product->all_images);
-        array_push($images, $product->image);
+        $images = explode(' ', $product->all_images ?? '');
+        $images[] = $product->image;
 
         $this->fileDestroy($images, 'products');
 
         $product->delete();
 
-        $this->dispatchBrowserEvent('success-toast', ['message' => 'deleted record!']);
+        $this->dispatch('success-toast', ['message' => 'Deleted product!']);
     }
 
-    public function render(): View {
-        $products = Product::where('name', 'LIKE', '%' . $this->searchStr . '%')
-            ->paginate($this->showDataPerPage, ['id', ...$this->tableDataColumnNames]);
+    public function render(): View
+    {
+        $products = Product::query()
+            ->when(
+                $this->search,
+                fn($query) =>
+                $query->where('name', 'like', '%' . $this->search . '%')
+            )
+            ->paginate($this->showDataPerPage, ['id', 'image', 'name', 'sku', 'qty_in_stock', 'sub_category_id', 'sale_price', 'original_price', 'stock_status', 'status', 'created_at']);
 
-        return view('livewire.products.products', [
-            'products' => $products,
-        ]);
+        return view('livewire.products.products', compact('products'));
     }
 }
